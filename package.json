@@ -1,0 +1,16 @@
+{
+  "name": "th-bruxo-sistema",
+  "version": "1.0.0",
+  "description": "Sistema VIP Bruxo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
