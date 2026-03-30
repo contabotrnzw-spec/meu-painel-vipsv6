@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH_BRUXO2_SYSTEM_2027</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+        body {
+            background-color: #000;
+            color: #ff3333; 
+            font-family: 'Courier Prime', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+            background-size: 100% 4px, 4px 100%;
+            padding: 20px 0;
+        }
+
+        .container {
+            background-color: rgba(10, 0, 0, 0.98); 
+            padding: 25px;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 450px; 
+            text-align: center;
+            box-shadow: 0 0 35px rgba(255, 0, 0, 0.6); 
+            border: 2px solid #ff0000; 
+            margin: 10px auto;
+        }
+
+        h2 { margin-bottom: 15px; text-transform: uppercase; font-size: 1.4em; text-shadow: 0 0 15px #ff0000; border-bottom: 2px solid #ff0000; padding-bottom: 8px;}
+
+        input, select {
+            width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ff0000;
+            background: #050000; color: #ff3333; box-sizing: border-box; outline: none; font-family: 'Courier Prime', monospace;
+        }
+
+        .btn {
+            width: 100%; padding: 15px; background: transparent; border: 2px solid #ff0000;
+            color: #ff0000; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 5px; transition: 0.2s;
+        }
+
+        .btn:hover { background: #ff0000; color: #000; }
+        .btn-reg { border-color: #00ffff; color: #00ffff; font-size: 0.8em; padding: 10px; }
+        .btn-game { border-color: #00ff00; color: #00ff00; margin-top: 20px; font-size: 1.1em; }
+
+        #painel-user, #admin-box { display: none; }
+
+        #log-terminal {
+            background: #000; border: 1px solid #440000; height: 130px; margin-bottom: 15px;
+            padding: 10px; font-size: 0.7em; text-align: left; display: none; color: #00ff44; overflow-y: auto;
+            border-left: 3px solid #00ff44;
+        }
+
+        .sub-header {
+            color: #fff; background: #440000; font-size: 0.8em; margin: 15px 0 10px; 
+            text-transform: uppercase; padding: 4px 8px; text-align: left;
+        }
+
+        .hack-option {
+            display: flex; align-items: center; margin-bottom: 8px; color: #ff4444; font-weight: bold; font-size: 0.9em; text-align: left; cursor: pointer;
+        }
+
+        .hack-option input[type="checkbox"] {
+            margin-right: 10px; width: 18px; height: 18px; accent-color: #ff0000; cursor: pointer;
+        }
+
+        .admin-link { color: #1a0000; font-size: 9px; cursor: pointer; margin-top: 20px; display: block; }
+        .expiry-info { font-size: 0.8em; color: #888; margin-bottom: 5px; text-align: left; border-bottom: 1px solid #330000; padding-bottom: 5px;}
+        
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #ff0000; }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-box">
+        <h2>>> REGISTRAR KEY</h2>
+        <input type="text" id="import-code" placeholder="COLE O CÓDIGO DA KEY AQUI">
+        <button class="btn btn-reg" onclick="importarDados()">[ ATIVAR ACESSO ]</button>
+        <hr style="border: 0; border-top: 1px solid #330000; margin: 20px 0;">
+        <h2>>> LOGIN TH_BRUXO2</h2>
+        <input type="text" id="user" placeholder="USUÁRIO">
+        <input type="password" id="pass" placeholder="SENHA">
+        <button class="btn" onclick="fazerLogin()">[ ENTRAR NO SISTEMA ]</button>
+        <span class="admin-link" onclick="abrirAdmin()">v1.1.5_FULL_FEATURES</span>
+    </div>
+
+    <div class="container" id="admin-box">
+        <h2>CENTRAL MASTER</h2>
+        <input type="text" id="new-user" placeholder="Nome do Usuário">
+        <input type="text" id="new-pass" placeholder="Senha do Usuário">
+        <select id="expiry-days">
+            <option value="1">Válido por 1 Dia</option>
+            <option value="7">Válido por 7 Dias</option>
+            <option value="30">Válido por 30 Dias</option>
+            <option value="999">Permanente</option>
+        </select>
+        <button class="btn" style="border-color: #00ffff; color: #00ffff;" onclick="gerarLogin()">[ CRIAR E EXPORTAR ]</button>
+        <button class="btn" onclick="location.reload()" style="margin-top:15px; border-color:#888; color:#888;">VOLTAR</button>
+    </div>
+
+    <div class="container" id="painel-user">
+        <h2>TH_BRUXO2_PANEL</h2>
+        <div id="welcome-msg" class="expiry-info"></div>
+        <div id="log-terminal"></div>
+
+        <div style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
+            <div class="sub-header">> TARGETING (MIRA)</div>
+            <label class="hack-option"><input type="checkbox" checked> Aimbot Bruxo 2.0</label>
+            <label class="hack-option"><input type="checkbox" checked> Auto HS Ultra (100%)</label>
+            <label class="hack-option"><input type="checkbox"> AimLock Suave (Invisível)</label>
+            <label class="hack-option"><input type="checkbox"> No Recoil Absoluto</label>
+
+            <div class="sub-header">> VISUALS (ESP)</div>
+            <label class="hack-option"><input type="checkbox" checked> ESP Nome + Distância</label>
+            <label class="hack-option"><input type="checkbox"> ESP Linha (Laser)</label>
+            <label class="hack-option"><input type="checkbox"> Antena Head</label>
+            <label class="hack-option"><input type="checkbox"> Wallhack Cristal V8</label>
+
+            <div class="sub-header">> SYSTEM & BYPASS</div>
+            <label class="hack-option"><input type="checkbox" checked> Bypass Anti-Blacklist</label>
+            <label class="hack-option"><input type="checkbox" checked> Injeção em 2º Plano</label>
+            <label class="hack-option"><input type="checkbox"> Unlock 120 FPS High</label>
+            <label class="hack-option"><input type="checkbox"> Limpar Reports (Anti-Ban)</label>
+        </div>
+
+        <button class="btn btn-game" id="btn-inject" onclick="entrarJogo()">[ INJETAR MÓDULOS ]</button>
+    </div>
+
+    <script>
+        const SENHA_MESTRA = "admin123"; 
+
+        function gerarLogin() {
+            const u = document.getElementById('new-user').value;
+            const p = document.getElementById('new-pass').value;
+            const days = parseInt(document.getElementById('expiry-days').value);
+            
+            if(u && p) {
+                const expiryDate = new Date().getTime() + (days * 24 * 60 * 60 * 1000);
+                let dados = {};
+                dados["th_user_" + u] = JSON.stringify({ password: p, expiry: expiryDate });
+                const codigoFinal = btoa(JSON.stringify(dados));
+                prompt("COPIE ESTE CÓDIGO E MANDE PARA O USUÁRIO:", codigoFinal);
+            } else { alert("Preencha tudo!"); }
+        }
+
+        function importarDados() {
+            const code = document.getElementById('import-code').value;
+            if (code) {
+                try {
+                    const dados = JSON.parse(atob(code));
+                    for (let key in dados) { localStorage.setItem(key, dados[key]); }
+                    alert("KEY REGISTRADA COM SUCESSO! AGORA FAÇA LOGIN.");
+                    document.getElementById('import-code').value = "";
+                } catch(e) { alert("CÓDIGO DE KEY INVÁLIDO!"); }
+            }
+        }
+
+        function fazerLogin() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+
+            if (u === "bruxo" && p === SENHA_MESTRA) { abrirPainel("ILIMITADO (MASTER)"); return; }
+
+            const storedData = localStorage.getItem("th_user_" + u);
+            if (storedData) {
+                const data = JSON.parse(storedData);
+                if (data.password === p && new Date().getTime() < data.expiry) {
+                    abrirPainel(new Date(data.expiry).toLocaleDateString());
+                } else { alert("Chave expirada ou senha incorreta!"); }
+            } else { alert("Usuário não registrado!"); }
+        }
+
+        function abrirPainel(exp) {
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('painel-user').style.display = 'block';
+            document.getElementById('welcome-msg').innerText = "Licença válida até: " + exp;
+        }
+
+        function abrirAdmin() {
+            if(prompt("DIGITE A SENHA MESTRE:") === SENHA_MESTRA) {
+                document.getElementById('login-box').style.display = 'none';
+                document.getElementById('admin-box').style.display = 'block';
+            }
+        }
+
+        function entrarJogo() {
+            const logEl = document.getElementById('log-terminal');
+            const btn = document.getElementById('btn-inject');
+            logEl.style.display = 'block';
+            btn.disabled = true;
+            btn.innerText = "INJETANDO...";
+            logEl.innerHTML = "<b>[ESTABELECENDO CONEXÃO]</b><br>";
+            
+            let logs = [
+                "> Mapeando memória do dispositivo...",
+                "> Carregando Aimbot e Auto HS...",
+                "> Injetando Visuals (ESP)...",
+                "> Aplicando Bypass Anti-Blacklist...",
+                "> Limpando Logs de Segurança...",
+                "> <b>SUCESSO:</b> MÓDULOS ATIVOS!"
+            ];
+
+            let i = 0;
+            const interval = setInterval(() => {
+                if(i < logs.length) {
+                    logEl.innerHTML += logs[i] + "<br>";
+                    logEl.scrollTop = logEl.scrollHeight;
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    
+                    // Cria o botão verde dentro do log
+                    logEl.innerHTML += "<br><center><button id='open-ff-btn' onclick='abrirFF()' style='background:#00ff00; color:#000; border:none; padding:10px; font-weight:bold; cursor:pointer; border-radius:5px; margin-top:10px;'>[ ABRIR FREE FIRE AGORA ]</button></center>";
+                    
+                    btn.disabled = false;
+                    btn.innerText = "[ INJEÇÃO CONCLUÍDA ]";
+                    logEl.scrollTop = logEl.scrollHeight;
+                }
+            }, 600);
+        }
+
+        // Função avançada que você solicitou
+        function abrirFF() {
+            // Comando que força a abertura do jogo e bloqueia o redirecionamento para a Play Store
+            const intentNormal = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.dts.freefireth;component=com.dts.freefireth/com.dts.freefireth.main.FreeFireActivity;end";
+            
+            window.location.href = intentNormal;
+
+            // Plano B: Caso o usuário só tenha o MAX instalado
+            setTimeout(() => {
+                const intentMax = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.dts.freefiremax;component=com.dts.freefiremax/com.dts.freefiremax.main.FreeFireActivity;end";
+                window.location.href = intentMax;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
